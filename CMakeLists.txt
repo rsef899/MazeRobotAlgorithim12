@@ -6,7 +6,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 project("MazeVisualiser")
 
-set(RAYLIB_VERSION 3.0.0)
+set(RAYLIB_VERSION 4.5.0)
 find_package(raylib ${RAYLIB_VERSION} QUIET) # Requires at least version 3.0
 if (NOT raylib_FOUND) # If there's none, fetch and build raylib
   include(FetchContent)
