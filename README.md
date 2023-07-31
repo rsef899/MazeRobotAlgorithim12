@@ -17,7 +17,7 @@ code.
 If you're on macOS or Linux, you can simply just install the
 dependencies listed above, and then run `./build.sh`.
 
-If you're on Windows, you have to do incite the CMake chant:
+If you're on Windows, you have to incant the CMake chant:
 ```pwsh
 mkdir build # Create a build directory
 cd build && cmake .. # Build from that directory so the build files are in one place
