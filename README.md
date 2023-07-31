@@ -1,8 +1,13 @@
 # Robot Visualiser in C
 
-This project has been created for the robot project in
-COMPSYS301. It is meant to be able to visualise path finding
+This project has been created for the COMPSYS301 design
+project. It is meant to be able to visualise path finding
 code.
+
+To use this code, simply modify the algorithm inside
+`algo.c`. Currently, the algorithm uses a modified version
+of DFS, and is nowhere near optimal, so it shouldn't be
+used.
 
 ## Requirements
 
@@ -47,4 +52,5 @@ Once CMake is setup, to rebuild you code, you can just run
 ```
 cmake --build . # Build the project
 ```
-from inside the `bin` directory.
+from inside the `bin` directory. You do not need to run
+the CMake setup more than once.

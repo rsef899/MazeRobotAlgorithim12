@@ -44,19 +44,19 @@ int run_algo(uint8_t map[MAP_HEIGHT][MAP_WIDTH], Point start, Point end,
     }
 
     // clang-format off
-    if (curr.x + 1 < MAP_WIDTH 
-				&& !IDX_POINT(map, RIGHT(curr)) 
-				&& !IDX_POINT(visited, RIGHT(curr))) {
-      assert(stackSize < MAX_PATH_SIZE);
-      result[stackSize++] = RIGHT(curr);
-      continue;
-    }
-
     if (curr.x - 1 >= 0 
 				&& !IDX_POINT(map, LEFT(curr)) 
 				&& !IDX_POINT(visited, LEFT(curr))) {
       assert(stackSize < MAX_PATH_SIZE);
       result[stackSize++] = LEFT(curr);
+      continue;
+    }
+
+    if (curr.x + 1 < MAP_WIDTH 
+				&& !IDX_POINT(map, RIGHT(curr)) 
+				&& !IDX_POINT(visited, RIGHT(curr))) {
+      assert(stackSize < MAX_PATH_SIZE);
+      result[stackSize++] = RIGHT(curr);
       continue;
     }
 
