@@ -11,7 +11,7 @@ used.
 
 ## Requirements
 
-**WINDOWS**:
+**Windows**:
 - `cmake`: A cross-platform build system ([link](cmake.org))
 - A C compiler
 
