@@ -6,10 +6,10 @@
 
 #define IDX_POINT(map, p) ((map)[(p).y][(p).x])
 
-#define LEFT(p) ((Point){ .x = (p).x - 1, .y = (p).y })
-#define RIGHT(p) ((Point){ .x = (p).x + 1, .y = (p).y })
-#define ABOVE(p) ((Point){ .x = (p).x, .y = (p).y - 1 })
-#define BELOW(p) ((Point){ .x = (p).x, .y = (p).y + 1 })
+#define LEFT(p) ((Point){.x = (p).x - 1, .y = (p).y})
+#define RIGHT(p) ((Point){.x = (p).x + 1, .y = (p).y})
+#define ABOVE(p) ((Point){.x = (p).x, .y = (p).y - 1})
+#define BELOW(p) ((Point){.x = (p).x, .y = (p).y + 1})
 
 // INPUTS
 // map:
@@ -21,12 +21,8 @@
 //
 // RETURNS:
 //  The length of the path
-int
-run_algo(uint8_t map[MAP_HEIGHT][MAP_WIDTH],
-         Point start,
-         Point end,
-         Point* result)
-{
+int run_algo(uint8_t map[MAP_HEIGHT][MAP_WIDTH], Point start, Point end,
+             Point *result) {
   // The following algorithm finds a random possible path
   // uses the result array as a stack
 
@@ -36,7 +32,6 @@ run_algo(uint8_t map[MAP_HEIGHT][MAP_WIDTH],
   // Stack allocated map, might be inefficient
   // if we know we aren't multi-threaded, we can make it static
   uint8_t visited[MAP_HEIGHT][MAP_WIDTH];
-  // Set visited to 0 for all items
   memset(visited, 0, sizeof(visited));
 
   while (stackSize != 0) {
@@ -80,6 +75,7 @@ run_algo(uint8_t map[MAP_HEIGHT][MAP_WIDTH],
       result[stackSize++] = BELOW(curr);
       continue;
     }
+    // clang-format on
 
     stackSize--;
   }
