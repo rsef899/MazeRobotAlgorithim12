@@ -4,9 +4,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-project("Robot Visualiser")
+project("MazeVisualiser")
 
-set(RAYLIB_VERSION 3.0)
+set(RAYLIB_VERSION 3.0.0)
 find_package(raylib ${RAYLIB_VERSION} QUIET) # Requires at least version 3.0
 if (NOT raylib_FOUND) # If there's none, fetch and build raylib
   include(FetchContent)
