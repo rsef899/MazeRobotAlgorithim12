@@ -1,8 +1,10 @@
-# Robot Visualiser in C
+# Maze Visualiser
 
 This project has been created for the COMPSYS301 design
 project. It is meant to be able to visualise path finding
-code.
+code. I created it so that pathfinding code could be written
+in C and tested in C instead of porting C code over to
+MATLAB.
 
 To use this code, simply modify the algorithm inside
 `algo.c`. Currently, the algorithm uses a modified version
@@ -40,7 +42,13 @@ If you're using Windows, you can install CMake from
 If you're on macOS or Linux, you can simply just install the
 dependencies listed above, and then run `./build.sh`.
 
-### Building on Windows
+### Building on Windows (Visual Studio)
+
+You can open CMake projects in Visual Studio. I'm not sure
+which button to click to do it, but I think it is simple
+enough.
+
+### Building on Windows (Command Line)
 
 On Windows, to setup cmake, you need to run
 ```pwsh

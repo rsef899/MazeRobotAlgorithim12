@@ -33,7 +33,8 @@ void draw_path(Point *path, int pathLength, int startx, int starty);
 int main(int argc, char **argv) {
 
   SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-  InitWindow(620, 500, "Robot Visualiser - 301");
+  InitWindow(40 + MAP_WIDTH * GRID_SCALE, 40 + MAP_HEIGHT * GRID_SCALE,
+             "Robot Visualiser - 301");
 
   const Point startPoint = (Point){.x = 1, .y = 1};
   const Point endPoint = (Point){.x = 17, .y = 13};
@@ -43,12 +44,7 @@ int main(int argc, char **argv) {
 
   // Event loop
   while (!WindowShouldClose()) {
-    ClearBackground((Color){
-        .r = 0,
-        .g = 0,
-        .b = 0,
-        .a = 0,
-    });
+    ClearBackground(BLACK);
 
     BeginDrawing();
 
@@ -65,7 +61,6 @@ int main(int argc, char **argv) {
 }
 
 void visualise_map(uint8_t map[MAP_HEIGHT][MAP_WIDTH], int sx, int sy) {
-
   for (int y = 0; y < MAP_HEIGHT; y++) {
     for (int x = 0; x < MAP_WIDTH; x++) {
       if (map[y][x] == POINT_WALL)
