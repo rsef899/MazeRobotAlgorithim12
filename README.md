@@ -26,7 +26,7 @@ used.
 - `raylib`: C library for drawing visuals
   ([link](https://www.raylib.com/))
 - A C compiler
--`pkg-config`: Finds the correct verisons of installed
+- `pkg-config`: Finds the correct verisons of installed
   libraries ([link](https://www.freedesktop.org/wiki/Software/pkg-config/))
 
 If you're using macOS, you should probably use `brew` or
