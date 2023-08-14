@@ -63,10 +63,10 @@ int main(int argc, char **argv) {
              "Robot Visualiser - 301");
 
   static const Point start = (Point){.x = 7, .y = MAP_HEIGHT - 2};
-  static Point pathArray[128];
+  static Point pathArray[MAX_PATH_SIZE];
 
   // Find the quickest path to the first piece of food
-  AlgoResult result = find_full_path(start, pathArray, COUNT_OF(pathArray));
+  AlgoResult result = run_algo(map, start, food_list, COUNT_OF(food_list), pathArray);
 
   // Event loop
   while (!WindowShouldClose()) {
@@ -84,11 +84,7 @@ int main(int argc, char **argv) {
     }
     // Display path length
     char buffer[255];
-    snprintf(buffer,
-             sizeof(buffer),
-             "Path Length: %ld, Memory Usage: %ld bytes",
-             result.pathLength,
-             result.stats.maxMemUsage);
+    snprintf(buffer, sizeof(buffer), "Path Length: %ld", result.pathLength);
     DrawText(buffer, 20, 40 + T(MAP_HEIGHT), 15, WHITE);
 
     draw_path(pathArray, result.pathLength, 20, 20);
@@ -111,82 +107,28 @@ void visualise_map(uint8_t map[MAP_HEIGHT][MAP_WIDTH], int sx, int sy) {
 void draw_path(Point *path, int pathLength, int sx, int sy) {
 
   Color drawColor;
-  for (int i = 0; i < (pathLength - 1); i++) {
+  for (int i = 0; i < pathLength; i++) {
     Point curr = path[i];
-    Point next = path[i + 1];
 
-    float percent = (((float)i) / ((float)pathLength));
+    float percent = (((float)(i + 1)) / ((float)pathLength));
     drawColor = (Color){
-        .a = 150,
-        .g = (unsigned char)(255 * percent),
+        .a = 255,
+        .r = (unsigned char)(255.0f * percent),
+        .g = 0,
         .b = 255,
     };
-
-    DrawLine(T(curr.x) + sx + GRID_SCALE / 2,
-             T(curr.y) + sy + GRID_SCALE / 2,
-             T(next.x) + sx + GRID_SCALE / 2,
-             T(next.y) + sy + GRID_SCALE / 2,
-             drawColor);
+    printf("Percent: %f\n", percent);
 
     DrawCircle(
         T(curr.x) + sx + GRID_SCALE / 2, T(curr.y) + sy + GRID_SCALE / 2, 3, drawColor);
-  }
 
-  // If we have a non-zero length path, draw the
-  // last circle
-  if (pathLength > 0) {
-    Point last = path[pathLength - 1];
-    DrawCircle(
-        T(last.x) + sx + GRID_SCALE / 2, T(last.y) + sy + GRID_SCALE / 2, 3, drawColor);
-  }
-}
-
-AlgoResult find_full_path(Point start, Point *out, size_t outCap) {
-  Point food[COUNT_OF(food_list)];
-  size_t foodLeft = COUNT_OF(food);
-  memcpy(food, food_list, sizeof(food_list));
-
-  AlgoResult result = {
-      .pathLength = 0,
-#ifdef TRACK_STATS
-      .stats.maxMemUsage = 0,
-#endif
-  };
-
-  *out = start;
-  while (foodLeft > 0) {
-    AlgoResult runResult = run_algo(map, *out, food, foodLeft, out, outCap);
-		assert(outCap >= runResult.pathLength);
-
-    Point last = out[runResult.pathLength - 1];
-    bool found = false;
-    for (int i = 0; i < foodLeft; i++) {
-      if (point_eq(food[i], last)) {
-        Point temp = food[foodLeft - 1];
-        food[foodLeft - 1] = food[i];
-        food[i] = temp;
-        found = true;
-        break;
-      }
+    if (i < (pathLength - 1)) {
+      Point next = path[i + 1];
+      DrawLine(T(curr.x) + sx + GRID_SCALE / 2,
+               T(curr.y) + sy + GRID_SCALE / 2,
+               T(next.x) + sx + GRID_SCALE / 2,
+               T(next.y) + sy + GRID_SCALE / 2,
+               drawColor);
     }
-
-    printf("Food Left: %ld\n", foodLeft);
-    fflush(stdout);
-    assert(found);
-
-    result.pathLength += runResult.pathLength - 1;
-    out += runResult.pathLength - 1;
-    outCap -= runResult.pathLength - 1;
-    foodLeft -= 1;
-
-#ifdef TRACK_STATS
-    if (runResult.stats.maxMemUsage > result.stats.maxMemUsage)
-      result.stats.maxMemUsage = runResult.stats.maxMemUsage;
-#endif
   }
-
-  result.pathLength++;
-  return result;
 }
-
-uint8_t point_eq(Point a, Point b) { return a.x == b.x && a.y == b.y; }
