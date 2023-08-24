@@ -62,7 +62,7 @@ int main(int argc, char **argv) {
              60 + MAP_HEIGHT * GRID_SCALE,
              "Robot Visualiser - 301");
 
-  static const Point start = (Point){.x = 7, .y = MAP_HEIGHT - 2};
+  Point start = (Point){.x = 7, .y = MAP_HEIGHT - 2};
   static Point pathArray[MAX_PATH_SIZE];
 
   // Find the quickest path to the first piece of food
